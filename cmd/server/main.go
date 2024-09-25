@@ -31,6 +31,7 @@ func runApp() {
 	userApp := user.NewUserApplication(userRepo)
 
 	server.RunGRPCServer(func(server *grpc.Server) {
+		// 注册服务handler
 		userHandler := rpc.NewUserHandler(userApp)
 		userPB.RegisterUserServer(server, userHandler)
 	})
