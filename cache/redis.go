@@ -38,7 +38,11 @@ func (r *RedisCache) Get(ctx context.Context, key string) (any, error) {
 	return r.client.Get(ctx, key).Result()
 }
 
-func (r *RedisCache) Delete(key string) error {
-	// TODO implement me
-	panic("implement me")
+func (r *RedisCache) Delete(ctx context.Context, key string) error {
+	_, err := r.client.Del(ctx, key).Result()
+	return err
+}
+
+func (r *RedisCache) LoadAndDelete(ctx context.Context, key string) (any, error) {
+	return r.client.GetDel(ctx, key).Result()
 }

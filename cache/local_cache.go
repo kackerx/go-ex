@@ -65,7 +65,7 @@ func (b *BuildInMapCache) Set(ctx context.Context, key string, val any, expirati
 	return nil
 }
 
-func (b *BuildInMapCache) Get(key string) (any, error) {
+func (b *BuildInMapCache) Get(ctx context.Context, key string) (any, error) {
 	b.mu.RLock()
 	if v, ok := b.data[key]; ok {
 		b.mu.RUnlock()
@@ -89,7 +89,7 @@ func (b *BuildInMapCache) Get(key string) (any, error) {
 	return nil, fmt.Errorf("%w, key: %s", ErrKeyNotFound, key)
 }
 
-func (b *BuildInMapCache) Delete(key string) error {
+func (b *BuildInMapCache) Delete(ctx context.Context, key string) error {
 	b.mu.Lock()
 	defer b.mu.Unlock()
 	delete(b.data, key)
@@ -105,4 +105,16 @@ func (b *BuildInMapCache) Close() error {
 	// 用sync.Once或者select避免多次调用的panic
 	close(b.close)
 	return nil
+}
+
+func (b *BuildInMapCache) LoadAndDelete(ctx context.Context, key string) (any, error) {
+	b.mu.Lock()
+	defer b.mu.Unlock()
+
+	if val, ok := b.data[key]; ok {
+		delete(b.data, key)
+		return val.val, nil
+	}
+
+	return nil, ErrKeyNotFound
 }
