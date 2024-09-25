@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"time"
 
-	_ "github.com/golang/mock/gomock"
 	"github.com/redis/go-redis/v9"
 )
 
