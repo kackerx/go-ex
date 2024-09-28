@@ -10,10 +10,6 @@ package main
  * }
  */
 func isSymmetric(root *TreeNode) bool {
-	if root == nil {
-		return false
-	}
-
 	return check(root.Left, root.Right)
 }
 

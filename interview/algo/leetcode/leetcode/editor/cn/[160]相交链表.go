@@ -9,8 +9,7 @@ package main
  * }
  */
 func getIntersectionNode(headA, headB *ListNode) *ListNode {
-	p1 := headA
-	p2 := headB
+	p1, p2 := headA, headB
 
 	for p1 != p2 {
 		if p1 == nil {

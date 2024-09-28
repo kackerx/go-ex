@@ -9,20 +9,15 @@ package main
  * }
  */
 func reverseList(head *ListNode) *ListNode {
-	if head == nil {
+	if head == nil || head.Next == nil {
 		return head
 	}
 
-	var pre *ListNode
-	cur := head
-	for cur != nil {
-		next := cur.Next
-		cur.Next = pre
-		pre = cur
-		cur = next
-	}
+	newHead := reverseList(head.Next)
+	head.Next.Next = head
+	head.Next = nil
 
-	return pre
+	return newHead
 }
 
 // leetcode submit region end(Prohibit modification and deletion)

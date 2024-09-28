@@ -1347,3 +1347,243 @@ func (s *set) has(key int) bool {
 func (s *set) add(key int) {
 	(*s)[key] = struct{}{}
 }
+
+var no = &ListNode{Val: 1, Next: &ListNode{Val: 2, Next: &ListNode{Val: 3, Next: &ListNode{Val: 4, Next: &ListNode{Val: 5}}}}}
+
+var no1 = &ListNode{Val: 5, Next: &ListNode{Val: 6, Next: &ListNode{Val: 4}}}
+var no2 = &ListNode{Val: 2, Next: &ListNode{Val: 4, Next: &ListNode{Val: 3}}}
+
+func TestReveNode(t *testing.T) {
+
+	// fmt.Println(reverseN(no, 3))
+	// fmt.Println(reverseBetween2(no, 2, 4))
+	// fmt.Println(reverseKGroup1(no, 2))
+	fmt.Println(isPalindrome(no))
+}
+
+func reverse1(no *ListNode) *ListNode {
+	var pre, cur, next *ListNode
+	cur = no
+	for cur != nil {
+		next = cur.Next
+		cur.Next = pre
+		pre = cur
+		cur = next
+	}
+
+	return pre
+}
+
+func reverseN(no *ListNode, n int) *ListNode {
+	var pre, cur, next *ListNode
+	cur = no
+	for i := 0; i < n; i++ {
+		next = cur.Next
+		cur.Next = pre
+		pre = cur
+		cur = next
+	}
+	no.Next = cur
+	return pre
+}
+
+func reverseBetween2(head *ListNode, m int, n int) *ListNode {
+	pre := head
+	for i := 1; i < m-1; i++ {
+		pre = pre.Next
+	}
+
+	node := reverseN(pre.Next, n-m+1)
+	pre.Next = node
+
+	return pre
+}
+
+func reverseKGroup1(head *ListNode, k int) *ListNode {
+	if head == nil {
+		return head
+	}
+
+	a, b := head, head
+	for i := 0; i < k; i++ {
+		if b == nil {
+			return head
+		}
+		b = b.Next
+	}
+
+	newHead := reverseN(a, k)
+	a.Next = reverseKGroup1(b, k)
+
+	return newHead
+}
+
+func isPalindrome(head *ListNode) bool {
+	slow, fast := head, head
+	for fast != nil && fast.Next != nil {
+		slow = slow.Next
+		fast = fast.Next.Next
+	}
+
+	if fast != nil {
+		slow = slow.Next
+	}
+
+	newHead := rev1(slow)
+	p := head
+
+	for newHead != nil {
+		if p.Val != newHead.Val {
+			return false
+		}
+
+		p = p.Next
+		newHead = newHead.Next
+	}
+
+	return true
+}
+
+func rev1(head *ListNode) *ListNode {
+	if head == nil {
+		return head
+	}
+
+	var pre, cur, next *ListNode
+	cur = head
+	for cur != nil {
+		next = cur.Next
+		cur.Next = pre
+		pre = cur
+		cur = next
+	}
+
+	return pre
+}
+
+func Test2(t *testing.T) {
+	fmt.Println(addTwoNumbers(no1, no2))
+}
+
+func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
+	dummy := &ListNode{}
+	p, p1, p2 := dummy, l1, l2
+	carry := 0
+
+	for p1 != nil || p2 != nil || carry > 0 {
+		val := carry
+
+		if p1 != nil {
+			val += p1.Val
+			p1 = p1.Next
+		}
+
+		if p2 != nil {
+			val += p2.Val
+			p2 = p2.Next
+		}
+
+		carry = val / 10
+		val %= 10
+		p.Next = &ListNode{Val: val}
+		p = p.Next
+	}
+
+	return dummy.Next
+}
+
+func Test19(t *testing.T) {
+	fmt.Println(removeNthFromEnd(no, 5))
+}
+
+func removeNthFromEnd(head *ListNode, n int) *ListNode {
+	dummy := &ListNode{Next: head}
+	fast := dummy
+	for i := 0; i < n+1; i++ {
+		fast = fast.Next
+	}
+
+	slow := dummy
+	for fast != nil {
+		slow = slow.Next
+		fast = fast.Next
+	}
+
+	slow.Next = slow.Next.Next
+
+	return dummy.Next
+}
+
+func Test23(t *testing.T) {
+	// h := &minHeap{}
+	// heap.Init(h)
+	// heap.Push(h, &ListNode{Val: 4})
+	// heap.Push(h, &ListNode{Val: 7})
+	// heap.Push(h, &ListNode{Val: 3})
+	// heap.Push(h, &ListNode{Val: 5})
+	//
+	// fmt.Println(heap.Pop(h))
+	// fmt.Println(heap.Pop(h))
+	// fmt.Println(heap.Pop(h))
+	// fmt.Println(heap.Pop(h))
+	fmt.Println(mergeKLists([]*ListNode{
+		{Val: 1, Next: &ListNode{Val: 4, Next: &ListNode{Val: 5}}},
+		{Val: 1, Next: &ListNode{Val: 3, Next: &ListNode{Val: 4}}},
+		{Val: 2, Next: &ListNode{Val: 6}},
+	}))
+}
+
+func mergeKLists(lists []*ListNode) *ListNode {
+	h := &minHeap{}
+	heap.Init(h)
+
+	for _, node := range lists {
+		heap.Push(h, node)
+	}
+
+	dummy := &ListNode{}
+	p := dummy
+	for h.Len() != 0 {
+		no := heap.Pop(h).(*ListNode)
+		p.Next = &ListNode{Val: no.Val}
+		p = p.Next
+		if no.Next != nil {
+			heap.Push(h, no.Next)
+		}
+	}
+
+	return dummy.Next
+}
+
+func Test92(t *testing.T) {
+	fmt.Println(reverseBetween1(&ListNode{Val: 3, Next: &ListNode{Val: 5}}, 1, 2))
+}
+
+func reverseBetween1(head *ListNode, left int, right int) *ListNode {
+	pre := head
+	for i := 1; i < left-1; i++ {
+		pre = pre.Next
+	}
+
+	pre.Next = reverseN1(pre.Next, right-left+1)
+
+	return head
+}
+
+func reverseN1(no *ListNode, n int) *ListNode {
+	if no == nil {
+		return no
+	}
+
+	var pre, cur, next *ListNode
+	cur = no
+	for i := 0; i < n; i++ {
+		next = cur.Next
+		cur.Next = pre
+		pre = cur
+		cur = next
+	}
+	no.Next = cur
+
+	return pre
+}

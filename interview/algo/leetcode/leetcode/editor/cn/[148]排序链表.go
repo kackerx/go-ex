@@ -13,7 +13,7 @@ func sortList(head *ListNode) *ListNode {
 		return head
 	}
 
-	mid := GetMid(head)
+	mid := getMin(head)
 	left := head
 	right := mid.Next
 	mid.Next = nil
@@ -24,7 +24,17 @@ func sortList(head *ListNode) *ListNode {
 	return merge(leftList, rightList)
 }
 
-func merge(left *ListNode, right *ListNode) *ListNode {
+func getMin(head *ListNode) *ListNode {
+	slow, fast := head, head.Next
+	for fast != nil && fast.Next != nil {
+		slow = slow.Next
+		fast = fast.Next.Next
+	}
+
+	return slow
+}
+
+func merge(left, right *ListNode) *ListNode {
 	dummy := &ListNode{}
 	p, p1, p2 := dummy, left, right
 
@@ -42,26 +52,11 @@ func merge(left *ListNode, right *ListNode) *ListNode {
 	if p1 != nil {
 		p.Next = p1
 	}
-
 	if p2 != nil {
 		p.Next = p2
 	}
 
 	return dummy.Next
-}
-
-func GetMid(head *ListNode) *ListNode {
-	if head == nil || head.Next == nil {
-		return head
-	}
-	slow, fast := head, head.Next
-
-	for fast != nil && fast.Next != nil {
-		slow = slow.Next
-		fast = fast.Next.Next
-	}
-
-	return slow
 }
 
 // leetcode submit region end(Prohibit modification and deletion)

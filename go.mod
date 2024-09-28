@@ -4,6 +4,7 @@ go 1.21
 
 require (
 	github.com/golang/mock v1.2.0
+	github.com/google/uuid v1.6.0
 	github.com/grpc-ecosystem/go-grpc-middleware v1.4.0
 	github.com/redis/go-redis/v9 v9.6.1
 	github.com/sirupsen/logrus v1.4.2
