@@ -49,8 +49,50 @@ func (s *stack) Pop() *ListNode {
 	return ret
 }
 
+func (s *stack) Peek() int {
+	return (*s)[len(*s)-1]
+}
+
 type TreeNode struct {
 	Val   int
 	Left  *TreeNode
 	Right *TreeNode
+}
+
+type Queue []*TreeNode
+
+func (q *Queue) Dequeue() *TreeNode {
+	ret := (*q)[0]
+	*q = (*q)[1:]
+	return ret
+}
+
+func (q *Queue) Enqueue(node *TreeNode) {
+	*q = append(*q, node)
+}
+
+func (q *Queue) Len() int {
+	return len(*q)
+}
+
+func (q *Queue) IsEmpty() bool {
+	return q.Len() == 0
+}
+
+type set map[int]struct{}
+
+func (s *set) Has(v int) bool {
+	if _, ok := (*s)[v]; ok {
+		return true
+	}
+
+	return false
+}
+
+func (s *set) Add(v int) {
+	(*s)[v] = struct{}{}
+}
+
+func (s *set) Rem(v int) {
+	delete(*s, v)
 }

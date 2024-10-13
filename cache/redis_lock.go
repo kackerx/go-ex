@@ -16,6 +16,8 @@ var (
 
 	//go:embed lua/unlock.lua
 	luaUnlock string
+	//go:embed lua/refresh.lua
+	luaRefresh string
 )
 
 // Client 对redis.Cmdable二次封装
@@ -39,16 +41,23 @@ func (c *Client) TryLock(ctx context.Context, key string, expiration time.Durati
 	}
 
 	return &Lock{
-		client: c.client,
-		key:    key,
-		val:    val,
+		client:     c.client,
+		key:        key,
+		val:        val,
+		expiration: expiration,
 	}, nil
 }
 
 type Lock struct {
-	client redis.Cmdable
-	key    string
-	val    string
+	client     redis.Cmdable
+	key        string
+	val        string
+	expiration time.Duration
+}
+
+func (l *Lock) Refresh(ctx context.Context) (err error) {
+	_, err = l.client.Eval(ctx, luaRefresh, []string{l.key}, l.val, l.expiration.Seconds()).Int64()
+	return err
 }
 
 func (l *Lock) UnLock(ctx context.Context, key string) (err error) {
