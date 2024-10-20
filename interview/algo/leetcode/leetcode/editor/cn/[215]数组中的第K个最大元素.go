@@ -3,49 +3,53 @@ package main
 import "container/heap"
 
 // leetcode submit region begin(Prohibit modification and deletion)
-func findKthLargest(nums []int, k int) int {
 
-	h := &Heap{}
-	heap.Init(h)
-
-	for i := 0; i < len(nums); i++ {
-		if i < k {
-			heap.Push(h, nums[i])
-		} else if nums[i] > h.Peek() {
-			heap.Pop(h)
-			heap.Push(h, nums[i])
-		}
-	}
-
-	return heap.Pop(h).(int)
+type MinHeap struct {
+	data []int
 }
 
-type Heap []int
-
-func (h *Heap) Len() int {
-	return len(*h)
+func (h *MinHeap) Len() int {
+	return len(h.data)
 }
 
-func (h *Heap) Less(i, j int) bool {
-	return (*h)[i] < (*h)[j]
+func (h *MinHeap) Less(i, j int) bool {
+	return h.data[i] < h.data[j]
 }
 
-func (h *Heap) Swap(i, j int) {
-	(*h)[i], (*h)[j] = (*h)[j], (*h)[i]
+func (h *MinHeap) Swap(i, j int) {
+	h.data[i], h.data[j] = h.data[j], h.data[i]
 }
 
-func (h *Heap) Push(x any) {
-	*h = append(*h, x.(int))
+func (h *MinHeap) Push(e any) {
+	h.data = append(h.data, e.(int))
 }
 
-func (h *Heap) Pop() any {
-	ret := (*h)[len(*h)-1]
-	*h = (*h)[:len(*h)-1]
+func (h *MinHeap) Pop() any {
+	ret := h.data[h.Len()-1]
+	h.data = h.data[:h.Len()-1]
 	return ret
 }
 
-func (h *Heap) Peek() int {
-	return (*h)[0]
+func (h *MinHeap) Peek() int {
+	return h.data[0]
+}
+
+func findKthLargest(nums []int, k int) int {
+	minHeap := &MinHeap{}
+	heap.Init(minHeap)
+
+	for i := 0; i < len(nums); i++ {
+		if i < k {
+			heap.Push(minHeap, nums[i])
+		} else {
+			if nums[i] >= minHeap.Peek() {
+				heap.Pop(minHeap)
+				heap.Push(minHeap, nums[i])
+			}
+		}
+	}
+
+	return minHeap.Peek()
 }
 
 // leetcode submit region end(Prohibit modification and deletion)

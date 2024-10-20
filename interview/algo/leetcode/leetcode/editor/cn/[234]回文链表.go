@@ -10,6 +10,7 @@ package main
  */
 func isPalindrome(head *ListNode) bool {
 	slow, fast := head, head
+
 	for fast != nil && fast.Next != nil {
 		slow = slow.Next
 		fast = fast.Next.Next
@@ -19,35 +20,32 @@ func isPalindrome(head *ListNode) bool {
 		slow = slow.Next
 	}
 
-	newHead := rev1(slow)
-	p := head
+	reveNode := reve(slow)
 
-	for newHead != nil {
-		if p.Val != newHead.Val {
+	p := reveNode
+	q := head
+	for p != nil {
+		if p.Val != q.Val {
 			return false
 		}
 
 		p = p.Next
-		newHead = newHead.Next
+		q = q.Next
 	}
 
 	return true
 }
 
-func rev1(head *ListNode) *ListNode {
-	if head == nil {
-		return head
-	}
-
-	var pre, cur, next *ListNode
-	cur = head
+func reve(node *ListNode) *ListNode {
+	cur := node
+	var pre, next *ListNode
 	for cur != nil {
 		next = cur.Next
 		cur.Next = pre
 		pre = cur
 		cur = next
 	}
-
 	return pre
 }
+
 // leetcode submit region end(Prohibit modification and deletion)

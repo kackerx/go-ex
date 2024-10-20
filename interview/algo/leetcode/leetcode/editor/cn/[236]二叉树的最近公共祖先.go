@@ -10,30 +10,30 @@ package main
  * }
  */
 func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
-	var helper func(node *TreeNode, val1, val2 int) *TreeNode
-	helper = func(node *TreeNode, val1, val2 int) *TreeNode {
-		if node == nil {
-			return nil
-		}
+	return find(root, p.Val, q.Val)
+}
 
-		if node.Val == val1 || node.Val == val2 {
-			return node
-		}
-
-		left := helper(node.Left, val1, val2)
-		right := helper(node.Right, val1, val2)
-
-		if left != nil && right != nil {
-			return node
-		}
-
-		if left != nil {
-			return left
-		}
-		return right
+func find(node *TreeNode, val1, val2 int) *TreeNode {
+	if node == nil {
+		return nil
 	}
 
-	return helper(root, p.Val, q.Val)
+	if node.Val == val1 || node.Val == val2 {
+		return node
+	}
+
+	left := find(node.Left, val1, val2)
+	right := find(node.Right, val1, val2)
+
+	if left != nil && right != nil {
+		return node
+	}
+
+	if left != nil {
+		return left
+	} else {
+		return right
+	}
 }
 
 // leetcode submit region end(Prohibit modification and deletion)

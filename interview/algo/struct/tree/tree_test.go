@@ -65,12 +65,14 @@ func TestTrie(t *testing.T) {
 
 func TestTriee(t *testing.T) {
 	tr := NewTriee()
-	tr.Insert("hello")
-	tr.Insert("hel")
-	tr.Insert("world")
-	tr.Insert("hhe")
+	tr.Insert("apple")
+	tr.Insert("appl")
+	tr.Insert("applee")
+	fmt.Println(tr.Contains("apple"))
+	fmt.Println(tr.Contains("applee"))
 
-	fmt.Println(tr.Contains("hel"))
-	fmt.Println(tr.HasPrefix("he"))
-	fmt.Println(tr.PassCnt("h"))
+	tr.Remove("apple")
+
+	fmt.Println(tr.Contains("apple"))
+	fmt.Println(tr.Contains("applee"))
 }

@@ -9,8 +9,8 @@ import (
 )
 
 func Test494(t *testing.T) {
-	s := []int{100}
-	fmt.Println(findTargetSumWays(s, -200))
+	// s := []int{100}
+	// fmt.Println(findTargetSumWays(s, -200))
 }
 
 func TestBack(t *testing.T) {

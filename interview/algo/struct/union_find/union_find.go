@@ -1,6 +1,6 @@
 package union_find
 
-type UF interface {
+type UFO interface {
 	GetSize() int
 	IsConnected(p, q int) bool
 	UnionElements(p, q int)

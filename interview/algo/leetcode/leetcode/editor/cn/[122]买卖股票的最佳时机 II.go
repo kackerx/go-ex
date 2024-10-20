@@ -1,14 +1,20 @@
 package main
-
-// leetcode submit region begin(Prohibit modification and deletion)
+//leetcode submit region begin(Prohibit modification and deletion)
 func maxProfit(prices []int) int {
-	var res int
+	n := len(prices)
+	dp := make([][2]int, n)
 
-	for i := 1; i < len(prices); i++ {
-		res += max(prices[i]-prices[i-1], 0) // 当天价格减去前一天价格为正有收益我们就加入收益和
+	for i := 0; i < n; i++ {
+		if i-1 == -1 {
+			dp[i][0] = 0
+			dp[i][1] = -prices[i]
+			continue
+		}
+
+		dp[i][0] = max(dp[i-1][0], dp[i-1][1]+prices[i])
+		dp[i][1] = max(dp[i-1][1], dp[i-1][0]-prices[i])
 	}
 
-	return res
+	return dp[n-1][0]
 }
-
-// leetcode submit region end(Prohibit modification and deletion)
+//leetcode submit region end(Prohibit modification and deletion)
