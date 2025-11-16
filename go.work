@@ -1,0 +1,6 @@
+go 1.25.1
+
+use ./db
+use ./gin
+use ./kai
+use ./test

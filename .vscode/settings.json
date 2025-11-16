@@ -1,0 +1,97 @@
+{
+  "logFileHighlighter.customPatterns": [
+    {
+      "pattern": "todo",
+      "patternFlags": "i",
+      "foreground": "#ff0000"
+    },
+    {
+      "pattern": "SELECT.*?FROM.*?WHERE.*?$",
+      "patternFlags": "si",
+      "foreground": "#eeff05",
+    },
+  ],
+  "workbench.colorCustomizations": {
+    "[Sunset Dark]": {
+      // "debugConsole.errorForeground": "#99C76A",
+      // "debugConsole.infoForeground": "#fafafa",
+      "debugConsole.warningForeground": "#ffa500",
+      // "debugConsole.sourceForeground": "#008000",
+      "sideBar.background": "#2b2d30",
+      "sideBar.border": "#2C2525",
+      "activityBar.background": "#2b2d30",
+      "panel.background": "#2b2d30",
+      "panel.border": "#2C2525",
+    }
+  },
+  "debugConsoleBeautify.enabled": true,
+  "debugConsoleBeautify.formatJSON": true,
+  "debugConsoleBeautify.theme": "dark",
+  "debugConsoleBeautify.rules": [
+    {
+      "pattern": "error|ERROR|Error",
+      "color": {
+        "dark": "#ff6464",
+        "light": "#ff6464"
+      },
+      "bold": true
+    },
+    {
+      "pattern": "INFO*SELECT",
+      "color": {
+        "dark": "#ff0000",
+        "light": "#ff0000"
+      }
+    },
+    {
+      "pattern": "time",
+      "color": {
+        "dark": "#ff0000",
+        "light": "#ff0000"
+      }
+    },
+    {
+      "pattern": "info|INFO|Info",
+      "color": {
+        "dark": "#6BB6FF",
+        "light": "#0066CC"
+      }
+    },
+    {
+      "pattern": "warn|WARN|Warn",
+      "color": {
+        "dark": "#ff6464",
+        "light": "#ff6464"
+      }
+    },
+    {
+      "pattern": "panic|PANIC|Panic",
+      "color": {
+        "dark": "#FF5555",
+        "light": "#CC0000"
+      }
+    },
+    {
+      "pattern": "GIN-debug",
+      "color": {
+        "dark": "#eeff05",
+        "light": "#eeff05"
+      }
+    },
+    {
+      "pattern": "GIN",
+      "color": {
+        "dark": "#ff0000",
+        "light": "#ff0000"
+      }
+    },
+    {
+      "pattern": "*SELECT.*?FROM.*?WHERE.*?$",
+      "color": {
+        "dark": "#ff0000",
+        "light": "#ff0000"
+      }
+    }
+  ],
+  "makefile.makefilePath": "/Users/apple/k/proj/go-ex/kai/Makefile"
+}

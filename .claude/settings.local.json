@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/apple/**)",
+      "Read(//Users/apple/.zim/**)",
+      "Bash(zimfw info:*)",
+      "Bash(source:*)",
+      "Bash(zimfw list:*)",
+      "Bash(zimfw install:*)",
+      "Bash(zimfw update:*)",
+      "Bash(zimfw upgrade:*)",
+      "Bash(exec:*)",
+      "Bash(zmodload:*)",
+      "Bash(echo:*)",
+      "Bash(compinit)",
+      "Bash(zimfw build:*)",
+      "Bash(cat:*)",
+      "Bash(bindkey)",
+      "Bash(bindkey:*)",
+      "Bash(enable-fzf-tab)",
+      "Bash(zstyle:*)",
+      "Bash(fzf:*)",
+      "Bash(typeset:*)",
+      "Bash(git clone:*)",
+      "Bash(~/.zim/zimfw.zsh build)",
+      "Bash(zsh:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
