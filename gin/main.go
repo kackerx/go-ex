@@ -28,5 +28,19 @@ func main() {
 		c.String(200, page)
 	})
 
+	r.GET("/test", Hehe, func(c *gin.Context) {
+		biz := c.GetString("biz")
+		slog.Info("biz", "biz", biz)
+		c.Next()
+	})
+
+	r.GET("/test2", func(c *gin.Context) {
+		biz := c.GetString("biz")
+		slog.Info("biz before", "biz", biz)
+		c.Next()
+		biz = c.GetString("biz")
+		slog.Info("biz after", "biz", biz)
+	}, Hehe)
+
 	r.Run(":8080")
 }

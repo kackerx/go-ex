@@ -5,3 +5,4 @@ use ./gin
 use ./kai
 use ./test
 use ./sso
+use ./mq

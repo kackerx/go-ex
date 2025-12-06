@@ -1,0 +1,13 @@
+@startuml "df"
+skinparam activityFontName Helvetica
+
+participant author
+
+author -> system: login
+activate system #FFBBBB
+
+system -> author: login success
+deactivate system
+
+
+@enduml
