@@ -7,3 +7,4 @@ use ./test
 use ./sso
 use ./mq
 use ./temporal
+use ./migration
