@@ -8,3 +8,4 @@ use ./sso
 use ./mq
 use ./temporal
 use ./migration
+use ./api
