@@ -9,3 +9,4 @@ use ./mq
 use ./temporal
 use ./migration
 use ./api
+use ./grpc
