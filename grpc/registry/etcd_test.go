@@ -7,7 +7,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/kackerx/go-ex/grpc/registry/user"
+	"github.com/kackerx/go-ex/grpc/server"
+	"github.com/kackerx/go-ex/grpc/user"
 	"github.com/stretchr/testify/suite"
 	etcdv3 "go.etcd.io/etcd/client/v3"
 	"go.etcd.io/etcd/client/v3/naming/endpoints"
@@ -63,9 +64,9 @@ func (s *EtcdTestSuite) TestServer() {
 	s.Require().NoError(err)
 	defer l.Close()
 
-	server := grpc.NewServer()
-	user.RegisterUserServer(server, &UserServer{})
-	err = server.Serve(l)
+	server1 := grpc.NewServer()
+	user.RegisterUserServer(server1, &server.UserServer{})
+	err = server1.Serve(l)
 
 	s.T().Log(err)
 }

@@ -1,17 +1,5 @@
 {
   // "go.buildTags": "wireinject", 
-  "logFileHighlighter.customPatterns": [
-    {
-      "pattern": "todo",
-      "patternFlags": "i",
-      "foreground": "#ff0000"
-    },
-    {
-      "pattern": "SELECT.*?FROM.*?WHERE.*?$",
-      "patternFlags": "si",
-      "foreground": "#eeff05"
-    }
-  ],
   "workbench.colorCustomizations": {
     "[Sunset Dark]": {
       // "debugConsole.errorForeground": "#99C76A",
