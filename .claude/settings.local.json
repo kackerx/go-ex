@@ -23,7 +23,9 @@
       "Bash(typeset:*)",
       "Bash(git clone:*)",
       "Bash(~/.zim/zimfw.zsh build)",
-      "Bash(zsh:*)"
+      "Bash(zsh:*)",
+      "mcp__glm-camp__claim_glm_camp_coupon",
+      "Bash(go build:*)"
     ],
     "deny": [],
     "ask": []
